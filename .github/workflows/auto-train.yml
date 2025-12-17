@@ -27,6 +27,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Sync with main (rebase, autostash)
+        run: |
+          git config pull.rebase true
+          git pull --rebase --autostash origin main
+
       - name: Run training pipeline
         env:
           HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY || '' }}
@@ -40,9 +45,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-
-          # Sync with remote in case of concurrent pushes
-          git pull --rebase origin main
 
           git add -f models/*.pkl models/model_metrics.json models/training_data_sample.csv
 
