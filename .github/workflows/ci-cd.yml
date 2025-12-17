@@ -89,14 +89,12 @@ jobs:
         pip install huggingface_hub
     
     - name: Login to Hugging Face
-      if: ${{ secrets.HF_TOKEN != '' }}
       env:
         HF_TOKEN: ${{ secrets.HF_TOKEN }}
       run: |
         huggingface-cli login --token $HF_TOKEN
     
     - name: Deploy to Hugging Face Spaces
-      if: ${{ secrets.HF_TOKEN != '' && secrets.HF_USERNAME != '' }}
       env:
         HF_TOKEN: ${{ secrets.HF_TOKEN }}
         HF_USERNAME: ${{ secrets.HF_USERNAME }}
@@ -114,9 +112,3 @@ jobs:
           --private false \
           . \
           --exclude "venv/**" "*.pyc" "__pycache__/**" ".env" "models/*.pkl"
-    
-    - name: Skip deployment (secrets not set)
-      if: ${{ secrets.HF_TOKEN == '' || secrets.HF_USERNAME == '' }}
-      run: |
-        echo "⚠️ HF_TOKEN or HF_USERNAME not set. Skipping deployment."
-        echo "Add these secrets in GitHub Settings to enable auto-deployment."
