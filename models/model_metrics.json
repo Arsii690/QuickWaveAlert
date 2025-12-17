@@ -1,55 +1,55 @@
 {
   "random_forest": {
     "model_name": "RandomForest",
-    "accuracy": 1.0,
-    "precision": 1.0,
-    "recall": 1.0,
-    "f1_score": 1.0,
-    "roc_auc": 1.0,
+    "accuracy": 0.9130434782608695,
+    "precision": 0.9024390243902439,
+    "recall": 0.9736842105263158,
+    "f1_score": 0.9367088607594938,
+    "roc_auc": 0.9571524966261808,
     "confusion_matrix": [
       [
-        68,
-        0
+        31,
+        8
       ],
       [
-        0,
-        132
+        2,
+        74
       ]
     ]
   },
   "gradient_boosting": {
     "model_name": "GradientBoosting",
-    "accuracy": 1.0,
-    "precision": 1.0,
-    "recall": 1.0,
-    "f1_score": 1.0,
-    "roc_auc": 1.0,
+    "accuracy": 0.9043478260869565,
+    "precision": 0.9012345679012346,
+    "recall": 0.9605263157894737,
+    "f1_score": 0.9299363057324841,
+    "roc_auc": 0.9542847503373819,
     "confusion_matrix": [
       [
-        68,
-        0
+        31,
+        8
       ],
       [
-        0,
-        132
+        3,
+        73
       ]
     ]
   },
   "logistic_regression": {
     "model_name": "LogisticRegression",
-    "accuracy": 0.985,
-    "precision": 0.9849624060150376,
-    "recall": 0.9924242424242424,
-    "f1_score": 0.9886792452830188,
-    "roc_auc": 0.9994429590017825,
+    "accuracy": 0.6521739130434783,
+    "precision": 0.6636363636363637,
+    "recall": 0.9605263157894737,
+    "f1_score": 0.7849462365591398,
+    "roc_auc": 0.7726045883940622,
     "confusion_matrix": [
       [
-        66,
-        2
+        2,
+        37
       ],
       [
-        1,
-        131
+        3,
+        73
       ]
     ]
   }
