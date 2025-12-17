@@ -17,7 +17,6 @@ ENV/
 *.md
 notebooks/
 data/
-!models/*.pkl
 .DS_Store
 .vscode
 .idea
