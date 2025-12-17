@@ -1,0 +1,55 @@
+name: Auto Train Models
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 3 * * *" # daily at 03:00 UTC
+
+jobs:
+  train-and-commit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # needed to push artifacts back to repo
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # ensure we can rebase/push
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run training pipeline
+        env:
+          HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY || '' }}
+          HOPSWORKS_PROJECT_NAME: ${{ secrets.HOPSWORKS_PROJECT_NAME || 'QuakeAlertWave' }}
+        run: |
+          python pipelines/3_training_pipeline.py
+
+      - name: Commit model artifacts if changed
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Sync with remote in case of concurrent pushes
+          git pull --rebase origin main
+
+          git add -f models/*.pkl models/model_metrics.json models/training_data_sample.csv
+
+          if git status --porcelain | grep .; then
+            git commit -m "Automated training: update models and artifacts"
+            git push origin HEAD:main
+          else
+            echo "No changes to commit."
+          fi
+
