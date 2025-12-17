@@ -58,8 +58,9 @@ logs/
 Thumbs.db
 
 # Project specific
-*.pkl
-*.joblib
-*.h5
-*.hdf5
+# Keep model artifacts in repo (needed for HF Space)
+!models/*.pkl
+!models/*.joblib
+!models/*.h5
+!models/*.hdf5
 
