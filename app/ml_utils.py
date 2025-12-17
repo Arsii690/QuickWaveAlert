@@ -104,12 +104,12 @@ def load_models() -> Tuple[Optional[object], Optional[object], Optional[object],
             'lr': list(MODEL_DIR.glob('logistic_regression_*.pkl')),
             'scaler': list(MODEL_DIR.glob('scaler_*.pkl'))
         }
-        
-        rf_model = None
-        gb_model = None
-        lr_model = None
-        scaler = None
-        
+    
+    rf_model = None
+    gb_model = None
+    lr_model = None
+    scaler = None
+    
         if model_files['rf']:
             rf_model = joblib.load(sorted(model_files['rf'])[-1])
         if model_files['gb']:
@@ -258,7 +258,7 @@ def detect_data_drift(production_data: pd.DataFrame, training_data: pd.DataFrame
             'production_std': float(prod_std),
             'training_std': float(train_std),
             'has_drift': drift_score > 0.3  # Threshold
-        }
+            }
     
     return drift_results
 
@@ -323,7 +323,7 @@ def get_lime_explanation(model, data: pd.DataFrame, feature_cols: list, instance
         
         # Generate explanation
         explanation = explainer.explain_instance(
-            instance, 
+            instance,
             predict_fn, 
             num_features=len(feature_cols),
             top_labels=1

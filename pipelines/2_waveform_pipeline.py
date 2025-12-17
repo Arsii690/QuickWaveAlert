@@ -148,13 +148,13 @@ def upload_to_hopsworks(df):
             logger.info(f"Feature group not found: {e}")
             logger.info("Creating new feature group...")
             try:
-                wave_fg = fs.create_feature_group(
-                    name="waveform_features",
-                    version=1,
-                    description="Real-time seismic waveform event features from STA/LTA detection",
-                    primary_key=["timestamp", "network", "station"],
-                    event_time="timestamp"
-                )
+            wave_fg = fs.create_feature_group(
+                name="waveform_features",
+                version=1,
+                description="Real-time seismic waveform event features from STA/LTA detection",
+                primary_key=["timestamp", "network", "station"],
+                event_time="timestamp"
+            )
                 logger.info("Feature group created successfully")
             except Exception as e2:
                 logger.error(f"Failed to create feature group: {e2}")
@@ -189,8 +189,8 @@ def upload_to_hopsworks(df):
         
         # First, handle schema mismatch (non-retryable)
         try:
-            wave_fg.insert(df)
-            logger.info("✅ Upload successful!")
+        wave_fg.insert(df)
+        logger.info("✅ Upload successful!")
         except Exception as e:
             error_msg = str(e)
             
