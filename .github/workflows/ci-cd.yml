@@ -92,11 +92,12 @@ jobs:
     
     - name: Install Hugging Face CLI
       run: |
-        pip install huggingface_hub
+        python -m pip install --upgrade pip
+        python -m pip install --upgrade huggingface_hub
     
     - name: Login to Hugging Face
       run: |
-        huggingface-cli login --token $HF_TOKEN
+        python -m huggingface_hub.cli login --token "$HF_TOKEN"
     
     - name: Deploy to Hugging Face Spaces
       run: |
@@ -108,7 +109,7 @@ jobs:
         
         # Push to Hugging Face Space
         TARGET_SPACE=${HF_SPACE_NAME:-QuakeAlertWave}
-        huggingface-cli upload $HF_USERNAME/$TARGET_SPACE \
+        python -m huggingface_hub.cli upload "$HF_USERNAME/$TARGET_SPACE" \
           --repo-type space \
           --private false \
           . \
