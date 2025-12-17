@@ -263,8 +263,8 @@ with st.sidebar:
     API_URL = st.text_input(
         "🔗 API URL",
         value=DEFAULT_API_URL,
-    help="FastAPI backend URL"
-)
+        help="FastAPI backend URL"
+    )
 
     # Connection status
     try:
@@ -280,7 +280,7 @@ with st.sidebar:
     st.markdown("### 📡 Station Selection")
     
     # Popular stations with flags
-popular_stations = {
+    popular_stations = {
         "🇺🇸 Albuquerque, NM (IU.ANMO)": {"network": "IU", "station": "ANMO"},
         "🇺🇸 College, Alaska (IU.COLA)": {"network": "IU", "station": "COLA"},
         "🇺🇸 Tucson, Arizona (US.TAU)": {"network": "US", "station": "TAU"},
@@ -302,9 +302,10 @@ popular_stations = {
             network = st.text_input("Network", value="IU", max_chars=2)
         with col2:
             station = st.text_input("Station", value="ANMO", max_chars=5)
-else:
-    network = popular_stations[selected_station]["network"]
-    station = popular_stations[selected_station]["station"]
+        st.markdown(f"**Network:** `{network}` | **Station:** `{station}`")
+    else:
+        network = popular_stations[selected_station]["network"]
+        station = popular_stations[selected_station]["station"]
         st.markdown(f"**Network:** `{network}` | **Station:** `{station}`")
     
     st.markdown("---")
@@ -499,45 +500,48 @@ with tab1:
                             viz_col1, viz_col2 = st.columns(2)
                             
                             with viz_col1:
-                            if 'peak_ratio' in events_df.columns:
-                                fig_ratio = go.Figure()
+                                if 'peak_ratio' in events_df.columns:
+                                    fig_ratio = go.Figure()
                                     
                                     # Color based on severity
                                     colors = ['#10b981' if x <= 5 else '#f59e0b' if x <= 10 else '#ef4444' 
                                              for x in events_df['peak_ratio']]
                                     
-                                fig_ratio.add_trace(go.Bar(
+                                    fig_ratio.add_trace(go.Bar(
                                         x=list(range(len(events_df))),
-                                    y=events_df['peak_ratio'],
+                                        y=events_df['peak_ratio'],
                                         marker_color=colors,
                                         text=events_df['peak_ratio'].round(2),
                                         textposition='auto'
                                     ))
                                     
                                     # Add threshold line
-                                    fig_ratio.add_hline(y=threshold, line_dash="dash", 
-                                                       line_color="#f59e0b", 
-                                                       annotation_text="Threshold")
+                                    fig_ratio.add_hline(
+                                        y=threshold,
+                                        line_dash="dash",
+                                        line_color="#f59e0b",
+                                        annotation_text="Threshold"
+                                    )
                                     
-                                fig_ratio.update_layout(
+                                    fig_ratio.update_layout(
                                         title="STA/LTA Ratio by Event",
                                         xaxis_title="Event #",
-                                    yaxis_title="STA/LTA Ratio",
+                                        yaxis_title="STA/LTA Ratio",
                                         template="plotly_dark",
                                         paper_bgcolor='rgba(0,0,0,0)',
                                         plot_bgcolor='rgba(0,0,0,0)',
                                         height=350
-                                )
-                                st.plotly_chart(fig_ratio, use_container_width=True)
+                                    )
+                                    st.plotly_chart(fig_ratio, use_container_width=True)
                             
                             with viz_col2:
-                            if 'peak_amplitude' in events_df.columns:
-                                fig_amp = go.Figure()
+                                if 'peak_amplitude' in events_df.columns:
+                                    fig_amp = go.Figure()
                                     
-                                fig_amp.add_trace(go.Scatter(
+                                    fig_amp.add_trace(go.Scatter(
                                         x=list(range(len(events_df))),
-                                    y=events_df['peak_amplitude'],
-                                    mode='markers+lines',
+                                        y=events_df['peak_amplitude'],
+                                        mode='markers+lines',
                                         marker=dict(
                                             size=12,
                                             color=events_df.get('peak_ratio', [5]*len(events_df)),
@@ -548,17 +552,17 @@ with tab1:
                                         line=dict(color='#6366f1', width=2)
                                     ))
                                     
-                                fig_amp.update_layout(
+                                    fig_amp.update_layout(
                                         title="Peak Amplitude by Event",
                                         xaxis_title="Event #",
-                                    yaxis_title="Amplitude",
+                                        yaxis_title="Amplitude",
                                         yaxis_type="log",
                                         template="plotly_dark",
                                         paper_bgcolor='rgba(0,0,0,0)',
                                         plot_bgcolor='rgba(0,0,0,0)',
                                         height=350
-                                )
-                                st.plotly_chart(fig_amp, use_container_width=True)
+                                    )
+                                    st.plotly_chart(fig_amp, use_container_width=True)
                             
                             # Frequency Analysis
                             if 'dominant_frequency' in events_df.columns:
@@ -608,7 +612,7 @@ with tab1:
                         st.error(f"❌ No Data Found: {error_msg}")
                         st.info("💡 **Tip**: Try a different channel (BHZ, HHZ, EHZ) or check if the station has data available for the selected channel and time period.")
                     else:
-                    st.error(f"❌ Error: {e}")
+                        st.error(f"❌ Error: {e}")
     
     with col_side:
         st.markdown("### ⚡ Quick Actions")
@@ -712,7 +716,7 @@ with tab3:
     col1, col2 = st.columns(2)
     
     with col1:
-    st.markdown("""
+        st.markdown("""
         <div class="info-card">
             <h4>🎯 Detection Performance</h4>
             <p>STA/LTA algorithm parameters:</p>

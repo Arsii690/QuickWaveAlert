@@ -104,11 +104,11 @@ def load_models() -> Tuple[Optional[object], Optional[object], Optional[object],
             'lr': list(MODEL_DIR.glob('logistic_regression_*.pkl')),
             'scaler': list(MODEL_DIR.glob('scaler_*.pkl'))
         }
-    
-    rf_model = None
-    gb_model = None
-    lr_model = None
-    scaler = None
+
+        rf_model = None
+        gb_model = None
+        lr_model = None
+        scaler = None
     
         if model_files['rf']:
             rf_model = joblib.load(sorted(model_files['rf'])[-1])
