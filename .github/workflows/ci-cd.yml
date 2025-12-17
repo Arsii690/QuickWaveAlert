@@ -105,24 +105,24 @@ jobs:
         
         # Push to Hugging Face Space using HfApi (no CLI binary needed)
         python - <<'PY'
-import os
-from huggingface_hub import HfApi
+        import os
+        from huggingface_hub import HfApi
 
-token = os.environ.get("HF_TOKEN")
-user = os.environ.get("HF_USERNAME")
-space = os.environ.get("HF_SPACE_NAME") or "QuakeAlertWave"
+        token = os.environ.get("HF_TOKEN")
+        user = os.environ.get("HF_USERNAME")
+        space = os.environ.get("HF_SPACE_NAME") or "QuakeAlertWave"
 
-if not token or not user:
-    raise SystemExit("HF_TOKEN and HF_USERNAME are required for deployment.")
+        if not token or not user:
+            raise SystemExit("HF_TOKEN and HF_USERNAME are required for deployment.")
 
-api = HfApi(token=token)
-repo_id = f"{user}/{space}"
+        api = HfApi(token=token)
+        repo_id = f"{user}/{space}"
 
-api.upload_folder(
-    repo_id=repo_id,
-    repo_type="space",
-    folder_path=".",
-    ignore_patterns=["venv/**", "*.pyc", "__pycache__/**", ".env", "models/*.pkl"]
-)
-print(f"✅ Uploaded to {repo_id}")
+        api.upload_folder(
+            repo_id=repo_id,
+            repo_type="space",
+            folder_path=".",
+            ignore_patterns=["venv/**", "*.pyc", "__pycache__/**", ".env", "models/*.pkl"]
+        )
+        print(f"✅ Uploaded to {repo_id}")
 PY
