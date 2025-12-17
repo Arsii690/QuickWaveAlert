@@ -125,4 +125,4 @@ jobs:
             ignore_patterns=["venv/**", "*.pyc", "__pycache__/**", ".env", "models/*.pkl"]
         )
         print(f"✅ Uploaded to {repo_id}")
-PY
+
