@@ -1,3 +1,15 @@
+---
+title: QuakeAlertWave
+emoji: 🌊
+colorFrom: blue
+colorTo: purple
+sdk: docker
+sdk_version: latest
+app_port: 7860
+pinned: false
+license: mit
+---
+
 # 🌊 QuakeAlert - Real-time Seismic Wave Analysis
 
 **Advanced MLOps project for real-time earthquake detection using live seismic waveform data and STA/LTA signal processing algorithm.**
