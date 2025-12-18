@@ -3,7 +3,10 @@ name: Auto Train Models
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 3 * * *" # daily at 03:00 UTC
+    # Run daily at 03:00 UTC
+    # Note: GitHub may delay scheduled runs by up to 15 minutes
+    # Workflows are paused if repository is inactive for 60+ days
+    - cron: "0 3 * * *"
 
 jobs:
   train-and-commit:
